@@ -1,0 +1,48 @@
+html,body {
+    height: 100%;
+    max-height: 100%;
+    font-family: 'Indie Flower', cursive;
+    color: deeppink;
+}
+.top-container{
+    padding-top: 10%;
+}
+.general-container{
+    background: url('img/pricing-1-bg.jpg');
+    height: 100%;
+}
+
+.general-container form{
+    margin-top: 30px;
+}
+
+.general-container form label{
+    font-weight: 100;
+    color: deeppink;
+    font-size: 25px;
+}
+
+.general-container form label2{
+    font-weight: 100;
+    color: black;
+    font-family: Tahoma;
+}
+
+.btn-green{
+    background: #01ce92;
+    border: none;
+    font-size: 20px;
+}
+
+.btn-green:hover{
+    background: #04a878;
+    border: none;
+    font-size: 25px;
+}
+
+.title{
+    color: deeppink;
+    text-align: center;
+    font-weight: 100;
+    line-height: 50px;
+}
