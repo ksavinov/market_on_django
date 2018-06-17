@@ -25,9 +25,6 @@ class Order(models.Model):
     created = models.DateTimeField(auto_now_add=True, auto_now=False)
     updated = models.DateTimeField(auto_now_add=False, auto_now=True)
 
-    # def __str__(self):
-    #     return self.id
-
     def __str__(self):
         return "Order: %s %s" % (self.id, self.status.name)
 
@@ -48,9 +45,6 @@ class ProductInOrder(models.Model):
     customer_phone = models.CharField(max_length=48, blank=True, default=None)
     created = models.DateTimeField(auto_now_add=True, auto_now=False)
     updated = models.DateTimeField(auto_now_add=False, auto_now=True)
-
-    # def __str__(self):
-    #     return self.id
 
     def __str__(self):
         return "%s" % self.product.name

@@ -6,7 +6,6 @@ class ProductInOrderInline(admin.TabularInline):
     model = ProductInOrder
     extra = 0
 
-
     class Meta:
         model = Status
 
@@ -23,8 +22,7 @@ admin.site.register(Status, StatusAdmin)
 
 class OrderAdmin(admin.ModelAdmin):
     list_display = [field.name for field in Order._meta.fields]
-    Inlines = [ProductInOrderInline]
-
+    inlines = [ProductInOrderInline]
 
     class Meta:
         model = Order
