@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="section-top">
+        <img src="{% static 'img/Tractor_Spectrum_1.jpg' %}" class="img-responsive" width="100%">
+    </div>
+    <div class="section section1">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="center">
+                        New arrivals
+                    </h1>
+                </div>
+                {% for product_image in products_images %}
+                    {% include 'landing/product_item.html' %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="section section-delivery">
+        <div>
+            <h3>Free shipping</h3>
+        </div>
+    </div>
+    <div class="section section2 tractors-container">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="center">
+                        Tractors
+                    </h1>
+                </div>
+
+                {% for product_image in products_images_tractors %}
+                    {% include 'landing/product_item.html' %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <div class="section section3 trucks-container">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="center">
+                        Trucks
+                    </h1>
+                </div>
+                {% for product_image in products_images_trucks %}
+                    {% include 'landing/product_item.html' %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
