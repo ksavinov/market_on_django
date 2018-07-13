@@ -101,3 +101,11 @@ class ProductInBasket(models.Model):
     class Meta:
         verbose_name = "Product in shopping cart"
         verbose_name_plural = "Products in shopping cart"
+
+    def save(self, *args, **kwargs):
+        price_per_item = self.product.price
+        self.price_per_item = price_per_item
+        self.total_price = int(self.number) * self.price_per_item
+
+        super(ProductInBasket, self).save(*args, **kwargs)
+

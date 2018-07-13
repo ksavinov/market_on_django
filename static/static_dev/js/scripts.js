@@ -1,6 +1,45 @@
 $(document).ready(function(){
     var form = $('#form_buying_product');
     console.log(form);
+
+    function basketUpdating(product_id, nmb, is_delete){
+        var data = {};
+        data.product_id = product_id;
+        data.nmb =  nmb;
+        var csrf_token = $('#form_buying_product [name="csrfmiddlewaretoken"]').val();
+        data["csrfmiddlewaretoken"] = csrf_token;
+
+        if (is_delete) {
+            data["is_delete"] = true;
+        }
+
+        var url = form.attr("action");
+        console.log(data);
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: data,
+            cache: true,
+            success: function(data){
+                console.log("OK");
+                console.log(data.products_total_nmb);
+                if (data.products_total_nmb || data.products_total_nmb == 0){
+                    $('#basket_total_nmb').text("("+data.products_total_nmb+")");
+                    console.log(data.products);
+                    $('.basket-items ul').html(""); // clear the shopping cart
+                    $.each(data.products, function(k, v){
+                    $('.basket-items ul').append('<li>' + v.name + ', ' + v.nmb + 'items ' + 'for ' + v.price_per_item +' RUB  ' +
+                        '<a class="delete-item" href="" data-product_id="'+v.id+'">x</a>'+
+                        '</li>');
+                    });
+                }
+            },
+            error: function() {
+                console.log("error")
+            }
+        });
+    }
+
     form.on('submit', function(e){
         e.preventDefault();
         console.log('123');
@@ -13,32 +52,7 @@ $(document).ready(function(){
         console.log(product_id );
         console.log(name);
 
-        var data = {};
-        data.product_id = product_id;
-        data.nmb =  nmb;
-        var csrf_token = $('#form_buying_product [name="csrfmiddlewaretoken"]').val();
-        data["csrfmiddlewaretoken"] = csrf_token;
-
-        var url = form.attr("action");
-        console.log(data)
-        $.ajax({
-            url: url,
-            type: 'POST',
-            data: data,
-            cache: true,
-            success: function(data){
-                console.log("OK");
-                console.log(data.products_total_nmb)
-            },
-            error: function() {
-                console.log("error")
-            }
-        })
-
-
-        $('.basket-items ul').append('<li>'+name+', ' + nmb + 'items ' + 'for ' + price + 'RUB  ' +
-            '<a class="delete-item" href="">x</a>'+
-            '</li>');
+        basketUpdating(product_id, nmb, is_delete=false)
     });
 
     function showingBasket(){
@@ -60,6 +74,8 @@ $(document).ready(function(){
 
     $(document).on('click', 'delete-item', function(e){
         e.preventDefault();
-        $(this).closest('li').remove();
+        product_id = $(this).data("product_id");
+        nmb = 0;
+        basketUpdating(product_id, nmb, is_delete=true)
     })
 });
