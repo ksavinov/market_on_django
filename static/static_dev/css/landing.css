@@ -8,7 +8,7 @@ html,body {
     padding-top: 10%;
 }
 .general-container{
-    background: url('img/pricing-1-bg.jpg');
+    background: url('../img/pricing-1-bg.jpg');
     height: 100%;
 }
 

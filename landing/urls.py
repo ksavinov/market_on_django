@@ -14,9 +14,11 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
+from django.views.generic import RedirectView
 from landing import views
 
 urlpatterns = [
     url(r'^$', views.home, name='home'),
-    url(r'^landing/$', views.landing, name='landing')
+    url(r'^landing/$', views.landing, name='landing'),
+    url(r'^favicon\.ico$', RedirectView.as_view(url='/static/static_dev/img/favicon.ico', permanent=True)),
 ]
