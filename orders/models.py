@@ -1,6 +1,7 @@
 from django.db import models
 from products.models import Product
 from django.db.models.signals import post_save
+from django.contrib.auth.models import User
 
 class Status(models.Model):
     name = models.CharField(max_length=16, blank=True, default=None)
@@ -17,6 +18,7 @@ class Status(models.Model):
 
 
 class Order(models.Model):
+    user = models.ForeignKey(User, blank=True, null=True, default=None, on_delete=models.CASCADE)
     total_price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     customer_name = models.CharField(max_length=128, blank=True, default=None)
     customer_email = models.EmailField(blank=True, default=None)

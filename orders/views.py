@@ -1,5 +1,5 @@
-from django.http import JsonResponse
-from .models import ProductInBasket
+from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
+from .models import *
 from django.shortcuts import render
 from .forms import CheckoutContactForm
 from django.contrib.auth.models import User
@@ -42,7 +42,7 @@ def basket_adding(request):
 def checkout(request):
     session_key = request.session.session_key
     products_in_basket = ProductInBasket.objects.filter(session_key=session_key, is_active=True, order__isnull=True)
-    print (products_in_basket)
+    print(products_in_basket)
     for item in products_in_basket:
         print(item.order)
 
@@ -52,7 +52,7 @@ def checkout(request):
         if form.is_valid():
             print("yes")
             data = request.POST
-            name = data.get("name", "3423453")
+            name = data.get("name", None)  # may put any value instead of None
             phone = data["phone"]
             user, created = User.objects.get_or_create(username=phone, defaults={"first_name": name})
 
@@ -62,13 +62,11 @@ def checkout(request):
                 if name.startswith("product_in_basket_"):
                     product_in_basket_id = name.split("product_in_basket_")[1]
                     product_in_basket = ProductInBasket.objects.get(id=product_in_basket_id)
-                    print(type(value))
-
                     product_in_basket.nmb = value
                     product_in_basket.order = order
                     product_in_basket.save(force_update=True)
 
-                    ProductInOrder.objects.create(product=product_in_basket.product, nmb = product_in_basket.nmb,
+                    ProductInOrder.objects.create(product=product_in_basket.product, nmb=product_in_basket.nmb,
                                                   price_per_item=product_in_basket.price_per_item,
                                                   total_price = product_in_basket.total_price,
                                                   order=order)
