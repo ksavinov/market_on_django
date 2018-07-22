@@ -4,13 +4,14 @@ from django.shortcuts import render
 from .forms import CheckoutContactForm
 from django.contrib.auth.models import User
 
+
 def basket_adding(request):
     return_dict = dict()
     session_key = request.session.session_key
     print(request.POST)
     data = request.POST
     product_id = data.get("product_id")
-    number = data.get("number")
+    number = data.get("nmb")[0]
     is_delete = data.get("is_delete")
 
     if is_delete == 'true':
@@ -30,10 +31,11 @@ def basket_adding(request):
     return_dict["products"] = list()
     for item in products_in_basket:
         product_dict = dict()
+        product_dict["products"] = list()
         product_dict["id"] = item.id
         product_dict["name"] = item.product.name
         product_dict["price_per_item"] = item.price_per_item
-        product_dict["nmb"] = item.nmb
+        product_dict["nmb"] = item.number
         product_dict["products"].append(product_dict)
 
     return JsonResponse(return_dict)
