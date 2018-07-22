@@ -54,6 +54,10 @@ html, body{
     bottom: 1px;
     left: 80px;
 }
+.btn-success.btn-add-to-cart {
+    position: relative!important;
+    left: 0;
+}
 
 .discount-container{
     position: absolute;

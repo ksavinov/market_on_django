@@ -52,16 +52,12 @@
                 </div>
                 <form id="form_buying_product" class="form-inline" action="{% url 'basket_adding' %}"> {% csrf_token %} <!-- django will create hidden input-->
                     <div class="form-group">
-                         <input type="number" class="form-control" name="number" id="number">
-                    </div>
-                    <div>
-                        <button type="submit" id="submit_btn"  class="btn btn-success btn-buy"
+                        <input type="number" class="form-control" name="number" id="number">
+                        <button type="submit" id="submit_btn"  class="btn btn-success btn-add-to-cart btn-buy"
                                 data-product_id = "{{ product.id }}"
                                 data-name ="{{ product.name }}"
                                 data-price ="{{ product.price }}"
-                        >
-                            Buy
-                        </button>
+                        >Buy</button>
                     </div>
                 </form>
             </div>
